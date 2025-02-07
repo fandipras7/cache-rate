@@ -2,23 +2,23 @@ name: Fetch Exchange Rates
 
 on:
   schedule:
-    # Setiap hari jam 06:00 WIB (23:00 UTC)
-    - cron: '0 23 * * *'
+    # Setiap hari jam 09:44 WIB (02:44 UTC)
+    - cron: '44 2 * * *'
   workflow_dispatch:
 
 jobs:
   update-rates:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # Wajib untuk repo public agar bisa push
+      # Wajib untuk repo public agar bisa push
+      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Fetch exchange rates
         run: |
-          # API_KEY="62f03ae7e5390aabb05cc7bafefd0336"
-          API_KEY="62f03ae7e5390aabb05cc7bafefd033"
+          API_KEY="62f03ae7e5390aabb05cc7bafefd0336"
           curl "https://data.fixer.io/api/latest?access_key=$API_KEY" -o rates.json
 
       - name: Commit and push changes
@@ -29,4 +29,5 @@ jobs:
           git commit -m "Update exchange rates" || echo "No changes to commit"
           git push
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Pakai token bawaan GitHub
+          # Pakai token bawaan GitHub
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
