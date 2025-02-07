@@ -17,7 +17,8 @@ jobs:
 
       - name: Fetch exchange rates
         run: |
-          API_KEY="62f03ae7e5390aabb05cc7bafefd0336"
+          # API_KEY="62f03ae7e5390aabb05cc7bafefd0336"
+          API_KEY="62f03ae7e5390aabb05cc7bafefd033"
           curl "https://data.fixer.io/api/latest?access_key=$API_KEY" -o rates.json
 
       - name: Commit and push changes
