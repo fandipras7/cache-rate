@@ -1,0 +1,28 @@
+name: Fetch Exchange Rates
+
+on:
+  schedule:
+    # Setiap hari jam 06:00 WIB (23:00 UTC)
+    - cron: '0 23 * * *'
+  # Bisa dijalankan manual juga
+  workflow_dispatch:
+
+jobs:
+  update-rates:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Fetch exchange rates
+        run: |
+          API_KEY="62f03ae7e5390aabb05cc7bafefd0336"
+          curl "https://data.fixer.io/api/latest?access_key=$API_KEY" -o rates.json
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add rates.json
+          git commit -m "Update exchange rates"
+          git push
