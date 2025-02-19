@@ -20,7 +20,7 @@ jobs:
 
       - name: Fetch exchange rates
         run: |
-          curl "https://data.fixer.io/api/latest?access_key=${{ secrets.FIXER_API_EY }}" -o rates.json
+          curl "https://data.fixer.io/api/latest?access_key=${{ secrets.FIXER_API_KEY }}" -o rates.json
 
       - name: Commit and push changes
         run: |
